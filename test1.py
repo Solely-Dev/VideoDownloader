@@ -2,7 +2,7 @@
 from moviepy.editor import *
 import easygui
 
-#loading video 
+#loading a video 
 video_path = easygui.fileopenbox()
 clip = VideoFileClip(video_path) 
 
