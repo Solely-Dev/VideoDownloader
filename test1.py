@@ -1,11 +1,30 @@
 #Import everything needed  
 from moviepy.editor import *
 import easygui
+import pafy 
+import youtube_dl
 
-#loading a video 
-video_path = easygui.fileopenbox()
-clip = VideoFileClip(video_path) 
+# url of the video 
+url = " "
 
-#saving the clip 
-clip.write_videofile("sample.mp4") 
+try:
+#creating pafy object of the video 
+ video = pafy.new(url) 
+
+# getting best stream 
+ stream = video.streams 
+ for i in stream: 
+    print(i) 
+ i = len(stream)
+ best = video.streams[i-1]
+
+# loading video from net
+ clip = VideoFileClip(best.url) 
+
+# saving the clip 
+ clip.write_videofile("video.mp4")
+
+except:
+    print("Video Not Found")
+
  
