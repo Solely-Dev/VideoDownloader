@@ -7,5 +7,6 @@ video_path = easygui.fileopenbox()
 clip = VideoFileClip(video_path) 
 
 #saving the clip 
-clip.write_videofile("sample.mp4") 
+save_path=easygui.filesavebox()
+clip.write_videofile(save_path) 
  
