@@ -33,10 +33,12 @@ root = Tk()
 #tk is a toolkit..it is set of tool,especially one kept in a bag or box  and used to purticular purpose
 root.geometry("500x300")
 user=" "
-
+def quit():
+    root.destroy()
 def print_url(): 
     global user
-    user=enter.get()  
+    user=enter.get() 
+    quit() 
     print(user)
     find_video(user)
 
