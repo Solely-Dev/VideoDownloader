@@ -8,25 +8,11 @@ import youtube_dl
 def save_video(clip):
 #saving the clip 
  save_path=easygui.filesavebox()
- clip.write_videofile(save_path)  
- 
-root = Tk()
-#tk is a toolkit..it is set of tool,especially one kept in a bag or box  and used to purticular purpose
-root.geometry("500x300")
-user=" "
-def pri(): 
-    global user
-    user=enter.get()  
-enter=Entry(root,font=('calibre',10))
-enter.pack(side=TOP,pady=30)
-enter.insert(0,"paste the link")
-button= Button(root,text="download",font=("cabrie"),command=pri)
-button.pack(side=TOP)
-root.mainloop()
+ clip.write_videofile(save_path) 
 
-try:
+def find_video(url):
+ try:
 #creating pafy object of the video 
-    url=user
     video = pafy.new(url)    
     # getting best stream 
     stream = video.streams 
@@ -40,8 +26,28 @@ try:
 
     save_video(clip)
 
-except:
-    print("Video Not Found")
+ except:
+    print("Video Not Found") 
+ 
+root = Tk()
+#tk is a toolkit..it is set of tool,especially one kept in a bag or box  and used to purticular purpose
+root.geometry("500x300")
+user=" "
+
+def print_url(): 
+    global user
+    user=enter.get()  
+    print(user)
+    find_video(user)
+
+enter=Entry(root,font=('calibre',10))
+enter.pack(side=TOP,pady=30)
+enter.insert(0,"paste the link")
+button= Button(root,text="download",font=("cabrie"),command=print_url)
+button.pack(side=TOP)
+root.mainloop()
+
+
 
 
 
