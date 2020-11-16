@@ -2,12 +2,16 @@
 from tkinter import *
 import easygui
 from pytube import YouTube
+import pathlib
 
 #saving the clip
 def save_video(tag,yt_obj):
-  title=yt_obj.title
-  save_path=easygui.filesavebox(default=title)
-  yt_obj.streams.get_by_itag(tag).download(save_path)
+ # title=yt_obj.title
+  save_path=easygui.filesavebox()
+  select_path = pathlib.Path(save_path)
+  location_stored=select_path.parent
+  yt_obj.streams.get_by_itag(tag).download(location_stored)
+
 
 #video in 360px
 def _360px(yt_obj):
