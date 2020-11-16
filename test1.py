@@ -1,33 +1,32 @@
 #Import everything needed  
-from moviepy.editor import *
 from tkinter import *
 import easygui
-import pafy 
-import youtube_dl
+from pytube import YouTube
 
-def save_video(clip):
-#saving the clip 
- save_path=easygui.filesavebox()
- clip.write_videofile(save_path) 
+#saving the clip
+def save_video(tag,yt_obj):
+  title=yt_obj.title
+  save_path=easygui.filesavebox(default=title)
+  yt_obj.streams.get_by_itag(tag).download(save_path)
 
-def find_video(url):
- try:
-#creating pafy object of the video 
-    video = pafy.new(url)    
-    # getting best stream 
-    stream = video.streams 
-    for i in stream: 
-        print(i) 
-    i = len(stream)
-    best = video.streams[i-1]
+#video in 360px
+def _360px(yt_obj):
+  itag=18
+  save_video(itag,yt_obj)
 
-    # loading video from net
-    clip = VideoFileClip(best.url) 
+def _720px(yt_obj):
+  itag=22
+  save_video(itag,yt_obj)  
 
-    save_video(clip)
+try:
+ #main function   
+ def find_video(url):
+#creating Youtube object of the video 
+  yt_obj = YouTube(url)    
+  _720px(yt_obj)
 
- except:
-    print("Video Not Found") 
+except:
+ print("Video Not Found") 
  
 root = Tk()
 #tk is a toolkit..it is set of tool,especially one kept in a bag or box  and used to purticular purpose
@@ -39,9 +38,7 @@ def print_url():
     global user
     user=enter.get() 
     quit() 
-    print(user)
     find_video(user)
-
 enter=Entry(root,font=('calibre',10))
 enter.pack(side=TOP,pady=30)
 enter.insert(0,"paste the link")
