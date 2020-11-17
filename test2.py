@@ -1,4 +1,4 @@
-#Import everything needed  
+#import everything needed  
 from tkinter import *
 import easygui
 from pytube import YouTube
