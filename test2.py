@@ -13,7 +13,8 @@ def save_video(tag,yt_obj):
    location_stored=select_path.parent
    yt_obj.streams.get_by_itag(tag).download(output_path=location_stored,filename=file_name)
   else:
-   print("process terminated...")
+    easygui.msgbox("process terminated...", "Error!")
+    print("process terminated...")
 
 #video in 360px
 def _360px(yt_obj):
@@ -32,6 +33,7 @@ def find_video(url):
    _360px(yt_obj)
 
  except:
+  easygui.msgbox("Video Not Found", "Warning!")
   print("Video Not Found") 
  
 root = Tk()
