@@ -6,80 +6,63 @@ from pytube import YouTube
 import pathlib
 
 #saving the clip
-def save_video(tag,yt_obj):
+def save_video(Video):
   save_path=easygui.filesavebox()
   if save_path != None:
    select_path = pathlib.Path(save_path)
    file_name=pathlib.Path(save_path).name
    location_stored=select_path.parent
-   yt_obj.streams.get_by_itag(tag).download(output_path=location_stored,filename=file_name)
+   Video.download(output_path=location_stored,filename=file_name)
   else:
     easygui.msgbox("process terminated...", "Error!")
     print("process terminated...")
 
-#video in 360px
-def _360px(yt_obj):
-  itag=18
-  save_video(itag,yt_obj)
-
-def _720px(yt_obj):
-  itag=22
-  save_video(itag,yt_obj)  
-
-def find_video(url):
+Video=" "
+def find_video(url,ttag):
  try:
-  
  #creating Youtube object of the video 
-   yt_obj = YouTube(url)    
-   _360px(yt_obj)
-
+   global Video 
+   yt_obj = YouTube(url) 
+   Video= yt_obj.streams.get_by_itag(ttag)
+   quit()
+   print(Video)
+   save_video(Video)
+   if Video == None: 
+    print("Video is not Available in that Quality :(")  
  except:
   easygui.msgbox("Video Not Found", "Warning!")
   print("Video Not Found") 
  
+def _1080px():
+  print_url(137)
+
+def _720px():
+  print_url(136)
+
+def _480px():
+  print_url(135)
+
+def _360px():
+  print_url(18)
+
 root = Tk()
 #tk is a toolkit..it is set of tool,especially one kept in a bag or box  and used to purticular purpose
 root.geometry("600x350")
 user=" "
+tag=" "
 def quit():
     root.destroy()
-def print_url(): 
+def print_url(itag): 
     global user
+    global tag
+    tag=itag
     user=enter.get() 
-    print(user)
-    quit() 
-    find_video(user)
+
 
 root.resizable(0,0)
-
 root.configure(bg="white")
-
 myFont= font.Font(family="helvetica",size=10,weight="bold")
-
 root.title("downloader")
-
-
-def sri():
-    lowest=360
-    print(lowest)
-
-def devi():
-    low=480
-    print(low)
-
-def sampath():
-    high=720
-    print(high)
-
-def reshma():
-    highest=1080
-    print(highest)    
-
-
-
-
-
-
 
 enter=Entry(root,font=('helvetica',15),bg="white",fg="black",borderwidth=5)
 enter.pack(side=TOP,pady=70)
@@ -88,30 +71,34 @@ enter.insert(0,"paste the link")
 Label(root, text = "    Enter URL:",bg="white",font=('helvetica 15 bold')).place(x = 25,y = 73)
 Label(root, text = "    Quality:",bg="white",font=('helvetica 15 bold')).place(x = 39,y = 200)
 
-#w=Label(root,text="Enter url",justify=RIGHT,padx=10)
-#w.pack(side=LEFT)
 
-button= Button(root,text="Download",font=("cabrie"),bg="green",fg="white",command=print_url,borderwidth=5)
+def Download():
+   
+     find_video(user,tag)
+   
+
+
+
+button= Button(root,text="Download",font=("cabrie"),bg="green",fg="white",command=Download,borderwidth=5)
 button['font']=myFont
 button.pack(side=BOTTOM,pady=30)
 
-but1=Button(root,text="360",font=("calibre",10),padx=10,fg="white",bg="#ff5733",command=sri,activebackground="#4444ff",borderwidth=5)
+but1=Button(root,text="360",font=("calibre",10),padx=10,fg="white",bg="#ff5733",command=_360px,activebackground="#4444ff",borderwidth=5)
 but1['font']=myFont
 but1.pack(side=RIGHT,padx=43)
  
 
-but2=Button(root,text="480",font=("calibre",10),padx=10,fg="white",bg="#ff5733",command=devi,activebackground="#4444ff",borderwidth=5)
+but2=Button(root,text="480",font=("calibre",10),padx=10,fg="white",bg="#ff5733",command=_480px,activebackground="#4444ff",borderwidth=5)
 but2['font']=myFont
 but2.pack(side=RIGHT,padx=18)
 
-but3=Button(root,text="720",font=("calibre",10),padx=10,fg="white",bg="#ff5733",command=sampath,activebackground="#4444ff",borderwidth=5)
+but3=Button(root,text="720",font=("calibre",10),padx=10,fg="white",bg="#ff5733",command=_720px,activebackground="#4444ff",borderwidth=5)
 but3['font']=myFont
 but3.pack(side=RIGHT,padx=18)
 
-but4=Button(root,text="1080",font=("calibre",10),padx=10,fg="white",bg="#ff5733",command=reshma,activebackground="#4444ff",borderwidth=5)
+but4=Button(root,text="1080",font=("calibre",10),padx=10,fg="white",bg="#ff5733",command= _1080px,activebackground="#4444ff",borderwidth=5)
 but4['font']=myFont
 but4.pack(side=RIGHT,padx=20)
-
 
 
 
