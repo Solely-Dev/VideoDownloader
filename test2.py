@@ -25,22 +25,22 @@ def find_video(url,ttag):
    yt_obj = YouTube(url) 
    Video= yt_obj.streams.get_by_itag(ttag)
    quit()
-   print(Video)
-   save_video(Video)
-   if Video == None: 
-    print("Video is not Available in that Quality :(")  
+   if Video != None:
+    save_video(Video)
+   else :
+    easygui.msgbox(msg="Video is not Available in that Quality :(",title="Warning")  
  except:
   easygui.msgbox("Video Not Found", "Warning!")
   print("Video Not Found") 
  
 def _1080px():
-  print_url(137)
+  print_url(37)
 
 def _720px():
-  print_url(136)
+  print_url(22)
 
 def _480px():
-  print_url(135)
+  print_url(83)
 
 def _360px():
   print_url(18)
@@ -73,9 +73,18 @@ Label(root, text = "    Quality:",bg="white",font=('helvetica 15 bold')).place(x
 
 
 def Download():
-   
-     find_video(user,tag)
-   
+    user=enter.get() 
+    if ':' in user: 
+     https,link=user.strip().split(":")
+     if ('https'== https) and (tag!=" "):
+         find_video(user,tag)
+     else:
+         if 'https'!=https:
+          easygui.msgbox(msg="url seems to be wrong",title="warning")
+         elif tag==" ":
+          easygui.msgbox(msg="no stream selected",title="warning") 
+    else:
+     easygui.msgbox(msg="no url provided",title="warning")
 
 
 
