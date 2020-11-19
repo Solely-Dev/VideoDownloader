@@ -38,7 +38,7 @@ def find_video(url,ttag):
     print("downloaded")
    
    else :
-    easygui.msgbox(msg="Video is not Available in that Quality :(",title="Warning")  
+    easygui.msgbox(msg="Video is not Available in that Quality :",title="Warning")  
  except:
   easygui.msgbox("Video Not Found", "Warning!")
   print("Video Not Found") 
