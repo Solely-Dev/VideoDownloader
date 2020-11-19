@@ -5,14 +5,21 @@ import easygui
 from pytube import YouTube
 import pathlib
 
+
+
+
 #saving the clip
 def save_video(Video):
   save_path=easygui.filesavebox()
+  easygui.msgbox(msg=" Video Downloading...",title="downloading")
+  print("downloading")
   if save_path != None:
    select_path = pathlib.Path(save_path)
    file_name=pathlib.Path(save_path).name
    location_stored=select_path.parent
    Video.download(output_path=location_stored,filename=file_name)
+   
+
   else:
     easygui.msgbox("process terminated...", "Error!")
     print("process terminated...")
@@ -27,6 +34,9 @@ def find_video(url,ttag):
    quit()
    if Video != None:
     save_video(Video)
+    easygui.msgbox(" Video Downloadeing successfully")
+    print("downloaded")
+   
    else :
     easygui.msgbox(msg="Video is not Available in that Quality :(",title="Warning")  
  except:
@@ -64,12 +74,12 @@ root.configure(bg="white")
 myFont= font.Font(family="helvetica",size=10,weight="bold")
 root.title("downloader")
 
-enter=Entry(root,font=('helvetica',15),bg="white",fg="black",borderwidth=5)
+enter=Entry(root,font=('helvetica',13),bg="white",fg="black",borderwidth=5,width=30)
 enter.pack(side=TOP,pady=70)
 enter.insert(0,"paste the link")
 
-Label(root, text = "    Enter URL:",bg="white",font=('helvetica 15 bold')).place(x = 25,y = 73)
-Label(root, text = "    Quality:",bg="white",font=('helvetica 15 bold')).place(x = 39,y = 200)
+Label(root, text = "    Enter URL:",bg="white",font=('helvetica 15 bold')).place(x = 5,y = 73)
+Label(root, text = "    Quality:",bg="white",font=('helvetica 15 bold')).place(x = 20,y = 200)
 
 
 def Download():
@@ -77,7 +87,9 @@ def Download():
     if ':' in user: 
      https,link=user.strip().split(":")
      if ('https'== https) and (tag!=" "):
+         
          find_video(user,tag)
+         
      else:
          if 'https'!=https:
           easygui.msgbox(msg="url seems to be wrong",title="warning")
@@ -88,9 +100,12 @@ def Download():
 
 
 
-button= Button(root,text="Download",font=("cabrie"),bg="green",fg="white",command=Download,borderwidth=5)
+button= Button(root,text="Download",bg="green",fg="white",command=Download,borderwidth=5)
 button['font']=myFont
 button.pack(side=BOTTOM,pady=30)
+
+
+
 
 but1=Button(root,text="360",font=("calibre",10),padx=10,fg="white",bg="#ff5733",command=_360px,activebackground="#4444ff",borderwidth=5)
 but1['font']=myFont
@@ -103,15 +118,14 @@ but2.pack(side=RIGHT,padx=18)
 
 but3=Button(root,text="720",font=("calibre",10),padx=10,fg="white",bg="#ff5733",command=_720px,activebackground="#4444ff",borderwidth=5)
 but3['font']=myFont
-but3.pack(side=RIGHT,padx=18)
+but3.pack(side=RIGHT,padx=22)
 
 but4=Button(root,text="1080",font=("calibre",10),padx=10,fg="white",bg="#ff5733",command= _1080px,activebackground="#4444ff",borderwidth=5)
 but4['font']=myFont
-but4.pack(side=RIGHT,padx=20)
+but4.pack(side=RIGHT,padx=35)
 
 
-
-
+  
 
 root.mainloop()
 
